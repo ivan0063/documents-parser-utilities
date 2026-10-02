@@ -62,6 +62,8 @@ Pipeline:
 | POST | `/api/v1/markdown/render` | JSON (below). `?raw=true` gives the Notes HTML only. `?format=pdf` gives the PDF file directly |
 | GET | `/view/{id}` | viewer page in the browser (with a "Copy for Notes" button) |
 | GET | `/view/{id}/pdf` | PDF download |
+| GET | `/view/{id}/notes` | Notes HTML of a rendered document |
+| POST | `/api/v1/markdown/diagrams` | each diagram as a base64 PNG in `items` |
 | GET | `/api/v1/diagnostics/notes-test` | tiny HTML with one base64 PNG, to check the Shortcuts → Notes flow |
 
 Example response:
@@ -105,6 +107,8 @@ com.jimm0063.magi.document.utilities
 Adding a module means adding a `@Component` that implements `TextModule`; the registry and `/api/v1/modules` pick it up automatically.
 
 ## 6. Phases
+
+Status: phases 0–7 are implemented in the first version, with unit and end-to-end tests (see README). The Notes image route (phase 6) still needs to be checked on a real iPhone.
 
 0. **Skeleton:** Maven project, core contract (`ModuleResponse`, `TextModule`, registry), error handler, `/api/v1/modules`, Thymeleaf layout
 1. **Markdown → HTML** without diagrams (flexmark, both HTML variants)

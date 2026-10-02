@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="~{fragments/layout :: head('Not found')}"></head>
+<body>
+<header th:replace="~{fragments/layout :: header}"></header>
+<main class="container">
+    <h1>Document not found</h1>
+    <p class="muted" id="expired-message">Rendered documents are only kept in memory for a short time and are
+        cleared when the service restarts. Please render it again.</p>
+    <p><a class="button primary" th:href="@{/markdown}">Render a document</a></p>
+</main>
+</body>
+</html>

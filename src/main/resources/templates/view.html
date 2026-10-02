@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title th:text="${doc.title()}">Document</title>
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+    <link rel="stylesheet" th:href="@{/css/document.css}">
+</head>
+<body class="viewer">
+<div class="toolbar" id="toolbar">
+    <a class="brand" th:href="@{/}">Magi</a>
+    <span class="status" th:if="${doc.failedDiagrams() > 0}" id="diagram-warning"
+          th:text="${doc.failedDiagrams()} + ' of ' + ${doc.diagramCount()} + ' diagram(s) could not be rendered'"></span>
+    <span class="spacer"></span>
+    <button type="button" class="primary" id="copy-notes"
+            th:attr="data-notes-url=@{/view/{id}/notes(id=${doc.id()})}">Copy for Apple Notes</button>
+    <a class="button" id="download-pdf" th:href="@{/view/{id}/pdf(id=${doc.id()})}">Download PDF</a>
+    <a class="button" th:href="@{/markdown}">New</a>
+</div>
+<p class="toast" id="toast" role="status" hidden></p>
+
+<article class="document" id="document" th:utext="${doc.bodyHtml()}"></article>
+
+<script th:src="@{/js/view.js}"></script>
+</body>
+</html>

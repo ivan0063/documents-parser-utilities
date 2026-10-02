@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="~{fragments/layout :: head('Home')}"></head>
+<body>
+<header th:replace="~{fragments/layout :: header}"></header>
+<main class="container">
+    <h1>Utilities</h1>
+    <p class="muted">Each module is available here in the browser and through the API for Apple Shortcuts.</p>
+
+    <ul class="module-list">
+        <li th:each="module : ${modules}" class="card module" th:attr="data-module=${module.id()}">
+            <h2>
+                <a th:if="${module.webPath() != null}" th:href="@{${module.webPath()}}" th:text="${module.id()}">module</a>
+                <span th:if="${module.webPath() == null}" th:text="${module.id()}">module</span>
+            </h2>
+            <p th:text="${module.description()}">description</p>
+            <p class="api">
+                <code th:each="action : ${module.actions()}"
+                      th:text="'POST /api/v1/' + ${module.id()} + '/' + ${action}">POST /api/v1/x/y</code>
+            </p>
+        </li>
+    </ul>
+</main>
+</body>
+</html>

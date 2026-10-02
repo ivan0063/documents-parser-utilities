@@ -1,0 +1,33 @@
+spring:
+  application:
+    name: magi-document-utilities
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+
+server:
+  # Listen on every interface so other devices on the local network (iPhone, iPad, Mac) can reach it.
+  address: 0.0.0.0
+  port: 8080
+  tomcat:
+    max-http-form-post-size: 10MB
+
+magi:
+  # Optional. When set, /api/** requires the header "X-API-Key: <value>". Empty = no protection.
+  api-key: ${MAGI_API_KEY:}
+  max-input-chars: 2000000
+  store:
+    # Rendered documents live only in memory and expire after this time.
+    ttl: 30m
+    max-documents: 50
+  browser:
+    # Leave empty to use the Chromium that Playwright manages (PLAYWRIGHT_BROWSERS_PATH).
+    executable-path: ${MAGI_BROWSER_EXECUTABLE_PATH:}
+    # Start Chromium at boot so the first request is fast.
+    warmup: true
+    timeout: 30s
+    # Diagrams are captured at 2x for sharp images on Retina screens.
+    device-scale-factor: 2
+  mermaid:
+    theme: default

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="~{fragments/layout :: head('Markdown')}"></head>
+<body>
+<header th:replace="~{fragments/layout :: header}"></header>
+<main class="container">
+    <h1>Markdown → document</h1>
+    <p class="muted">Paste Markdown or upload a <code>.md</code> file. Mermaid diagrams are rendered as images,
+        ready to copy into Apple Notes or download as a PDF.</p>
+
+    <p th:if="${error}" class="alert" id="error" th:text="${error}">Error</p>
+
+    <form method="post" th:action="@{/markdown}" enctype="multipart/form-data" class="card form" id="render-form">
+        <label for="text">Markdown</label>
+        <textarea id="text" name="text" rows="18" spellcheck="false"
+                  placeholder="# My document&#10;&#10;```mermaid&#10;flowchart LR&#10;  A --> B&#10;```"
+                  th:text="${text}"></textarea>
+
+        <div class="row">
+            <label class="file">
+                <span>…or upload a file</span>
+                <input type="file" id="file" name="file" accept=".md,.markdown,.txt,text/markdown,text/plain">
+            </label>
+            <label class="select">
+                <span>Diagram theme</span>
+                <select id="theme" name="theme">
+                    <option value="default">default</option>
+                    <option value="neutral">neutral</option>
+                    <option value="forest">forest</option>
+                    <option value="base">base</option>
+                </select>
+            </label>
+        </div>
+
+        <button type="submit" id="render-button" class="primary">Render</button>
+    </form>
+</main>
+<script>
+    document.getElementById('render-form').addEventListener('submit', () => {
+        const button = document.getElementById('render-button');
+        button.disabled = true;
+        button.textContent = 'Rendering…';
+    });
+</script>
+</body>
+</html>
